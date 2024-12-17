@@ -1,4 +1,18 @@
+<?php
+session_start();
+//Vérification de l'accès 
+if (!isset($_SESSION['id']) || !isset($_SESSION['role_id']) || $_SESSION['role_id'] != 2) {
+    header('Location: ../login.php');
+    exit();
+}
+require '../db.php';
 
+$total_utilisateurs = $conn->query("SELECT COUNT(*) AS total FROM utilisateurs")->fetch_assoc()['total'];
+$total_articles = $conn->query("SELECT COUNT(*) AS total FROM articles")->fetch_assoc()['total'];
+$total_tags = $conn->query("SELECT COUNT(*) AS total FROM tags")->fetch_assoc()['total'];
+
+$nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESSION['nom_utilisateur']) : 'Admin';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
