@@ -65,36 +65,7 @@ include("db.php");
         </div>
     </section>
 
-    <!-- Sidebar Modal -->
-
-    <div id="sidebarModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden">
-        
-        <div class="bg-white w-64 h-full shadow-lg flex flex-col justify-between">
-            
-            <div class="p-6 space-y-4">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold text-gray-800">Menu</h2>
-                    <i class="ri-close-line text-2xl cursor-pointer" id="closeSidebar"></i>
-                </div>
-                <nav class="flex flex-col space-y-4 text-gray-800">
-                    <a href="#">Home</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Resources</a>
-                    <a href="#">Tutorials</a>
-                    <a href="#">Community</a>
-                </nav>
-            </div>
-
-            <div class="p-6 space-y-2">
-                <button class="w-full px-4 py-2 border border-black bg-white text-black rounded-lg hover:bg-black hover:text-white">
-                    Log in
-                </button>
-                <button class="w-full px-4 py-2 bg-black text-white rounded-lg hover:bg-white hover:text-black hover:border hover:border-black">
-                    Sign up
-                </button>
-            </div>
-        </div>
-    </div>
+   
 
 
 
