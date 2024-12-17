@@ -1,4 +1,53 @@
+<?php
+require 'db.php';
+$message = '';  
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = trim($_POST['email']);
+    $mot_de_passe = trim($_POST['mot_de_passe']);
+    if (!empty($email) && !empty($mot_de_passe)) {
+       
+        $stmt = $conn->prepare("SELECT id, mot_de_passe_hash, nom_utilisateur, role_id FROM utilisateurs WHERE email = ?");
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            // Récupérer les informations de l'utilisateur
+            $stmt->bind_result($id, $mot_de_passe_hash, $nom_utilisateur, $role_id); 
+            $stmt->fetch();
+
+            // Vérification le mot de passe
+            if (password_verify($mot_de_passe, $mot_de_passe_hash)) {
+                session_start();
+                $_SESSION['id'] = $id;
+                $_SESSION['email'] = $email;
+                $_SESSION['nom_utilisateur'] = $nom_utilisateur; 
+                $_SESSION['role_id'] = $role_id; 
+
+                if ($role_id == 2) {
+                    header('Location: ./admin_page/dashboard.php'); 
+                } else {
+                    header('Location: ../page/article.php'); 
+                }
+                exit();
+            } else {
+                // Mot de passe incorrect
+                $message = "<div class='text-red-500 p-3 mb-4 border border-red-300 bg-red-100 rounded'>Mot de passe incorrect.</div>";
+            }
+        } else {
+            // Utilisateur non trouvé
+            $message = "<div class='text-red-500 p-3 mb-4 border border-red-300 bg-red-100 rounded'>Utilisateur non trouvé.</div>";
+        }
+
+        
+        $stmt->close();
+    } else {
+        
+        $message = "<div class='text-red-500 p-3 mb-4 border border-red-300 bg-red-100 rounded'>Veuillez remplir tous les champs.</div>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
