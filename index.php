@@ -65,11 +65,6 @@ include("db.php");
         </div>
     </section>
 
-   
-
-
-
-
 </body>
 
 </html>
