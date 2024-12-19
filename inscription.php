@@ -5,12 +5,10 @@ require 'db.php';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Récupérer les données du formulaire
     $role_id = 1; 
     $nom_utilisateur = trim($_POST['nom_utilisateur']);
     $email = trim($_POST['email']);
     $mot_de_passe = trim($_POST['mot_de_passe']);
-
     // Vérifier lexistance duser
     $stmt = $conn->prepare("SELECT id FROM utilisateurs WHERE email = ? OR nom_utilisateur = ?");
     $stmt->bind_param('ss', $email, $nom_utilisateur);
@@ -20,8 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt->num_rows > 0) {
         $message = "<div class='text-red-500 p-3 mb-4 border border-red-300 bg-red-100 rounded'>L'email ou le nom d'utilisateur existe déjà.</div>";
     } else {
-        $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-        //insertion 
+        $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_DEFAULT); 
         $stmt = $conn->prepare("INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe_hash, role_id) VALUES (?, ?, ?, ?)");
         $stmt->bind_param('sssi', $nom_utilisateur, $email, $mot_de_passe_hash, $role_id);
         if ($stmt->execute()) {
@@ -29,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user_id = $stmt->insert_id;
             $_SESSION['id'] = $user_id;
             $_SESSION['email'] = $email;
+            $_SESSION['nom_utilisateur'] = $nom_utilisateur; 
             $_SESSION['role_id'] = $role_id;
             if ($role_id == 2) {
                     header('Location: ./admin_page/dashboard.php'); 
