@@ -6,11 +6,9 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['role_id']) || $_SESSION['role_i
     header('Location: login.php');
     exit();
 }
-
-// Connexion à la base de données
 require '../db.php';
 
-// Récupération des articles avec leurs tags et l'utilisateur
+// Récupération des articles 
 $result = $conn->query("SELECT a.id, a.titre, a.contenu, a.Url_image, u.nom_utilisateur, 
                                GROUP_CONCAT(t.nom ORDER BY t.nom ASC) AS tags
                         FROM articles a
@@ -34,7 +32,7 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
-<body class="bg-gray-100 h-screen flex flex-col md:flex-row">
+<body class="bg-gray-100  flex flex-col md:flex-row">
     <!-- Sidebar -->
     <aside class=" w-full  md:w-64 bg-[#cb6ce6] text-white text-2xl md:text-xl flex flex-col">
         <div class="px-6 py-8">
