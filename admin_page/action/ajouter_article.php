@@ -1,22 +1,20 @@
 <?php
-
+session_start();
 require '../../db.php';
 $query_tags = "SELECT id, nom FROM tags";
 $result_tags = $conn->query($query_tags);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 $titre = $_POST['titre'];
 $contenu = $_POST['contenu'];
-$tags = $_POST['tags'];
-$tags_id = $_POST['tags_id'] ?? null;
+$tags_id = $_POST['tags'] ?? null;
 $Url_image = $_POST['Url_image'];
     
     if (empty($titre) || empty($contenu)) {
         $error_message = "Le titre et le contenu sont obligatoires.";
     } else {
-        
         $stmt = $conn->prepare("INSERT INTO articles (utilisateur_id, titre, contenu, Url_image) VALUES (?, ?, ?, ?)");
-        $utilisateur_id = 1; 
+        $utilisateur_id = $_SESSION['id'];
         $stmt->bind_param("isss", $utilisateur_id, $titre, $contenu, $Url_image);
         $stmt->execute();
         
@@ -80,7 +78,7 @@ $Url_image = $_POST['Url_image'];
             <!-- Tags -->
             <div class="mb-6">
                 <label for="tags_id" class="block text-gray-700 text-lg font-medium">Tags</label>
-                <select name="tags_id" id="tags_id" class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <select name="tags" id="tags_id" class="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     <option value="">Sélectionner un tag</option>
                     <?php while ($tag = $result_tags->fetch_assoc()): ?>
                         <option value="<?php echo $tag['id']; ?>"><?php echo $tag['nom']; ?></option>
