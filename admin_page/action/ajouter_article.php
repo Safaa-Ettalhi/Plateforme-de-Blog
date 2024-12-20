@@ -7,7 +7,7 @@ $result_tags = $conn->query($query_tags);
 if ($_SERVER['REQUEST_METHOD'] == 'POST' ) {
 $titre = $_POST['titre'];
 $contenu = $_POST['contenu'];
-$tags_id = $_POST['tags'] ?? null;
+$tags_id = $_POST['tags'];
 $Url_image = $_POST['Url_image'];
     
     if (empty($titre) || empty($contenu)) {
