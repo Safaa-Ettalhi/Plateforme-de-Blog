@@ -96,7 +96,7 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
                     <?php while ($article = $result->fetch_assoc()): ?>
                         <tr class="hover:bg-[#f8deff61] transition duration-300 ease-in-out">
                             <td class="border-b border-gray-200 px-6 py-4"><?php echo htmlspecialchars($article['titre']); ?></td>
-                            <td class="border-b border-gray-200 px-6 py-4"><?php echo htmlspecialchars(substr($article['contenu'], 0, 18)) . '...'; ?></td>
+                            <td class="border-b border-gray-200 px-6 py-4"><div><?php echo substr($article['contenu'], 0, 18) . '...'; ?></td>
                             <td class="border-b border-gray-200 px-6 py-4">
                                   <?php echo htmlspecialchars($article['tags'] ?: 'Aucun tag'); ?>
                             </td>
