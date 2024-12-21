@@ -1,5 +1,21 @@
+
+
 <?php
-include("db.php");
+include("./db.php");
+
+session_start();
+
+
+
+// Récupérer les articles de tous les utilisateurs
+$query = "SELECT a.id, a.titre, a.contenu, a.Url_image, u.nom_utilisateur, 
+                               t.nom AS tags
+                        FROM articles a
+                        LEFT JOIN utilisateurs u ON a.utilisateur_id = u.id
+                        LEFT JOIN article_tags at ON a.id = at.article_id
+                        LEFT JOIN tags t ON at.tags_id = t.id";  
+$result = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +34,9 @@ include("db.php");
 <body class="bg-gray-50 mx-4">
    
     <!-- Header And Hero section  -->
-    <section class="relative bg-cover bg-center bg-[url('/assets/bg.jpg')] h-[96vh] mt-3 flex  rounded-2xl text-white">
+    <section class="relative bg-cover bg-center bg-[url('/assets/bg.jpg')] h-[70vh] mt-3 flex  rounded-2xl text-white">
         <div class="container mx-auto px-6 flex flex-col justify-between">
-            <header class=" shadow-sm sticky top-0 z-50">
+            <header class=" shadow-sm  top-0 z-50">
                 <div class="container mx-auto flex items-center justify-between px-6 py-4">
 
                     <div class="flex items-center space-x-2 text-gray-800 font-semibold">
@@ -64,7 +80,44 @@ include("db.php");
             </div>
         </div>
     </section>
+    <section class="container max-w-full py-8 mt-10">
+            <h2 class="text-4xl font-bold text-[#cb6ce6]  mb-10">Découvrire Nos Articles</h2>
+            
+            <!-- Articles Cards -->
+            <div class="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <?php if ($result->num_rows > 0): ?>
+                <?php while ($article = $result->fetch_assoc()): ?>
+            <div class="w-full bg-white rounded-lg shadow-lg overflow-hidden relative"> <!-- Ajout de relative ici -->
+                <!-- Tag positionné en haut à gauche -->
+                <p class="absolute top-0 left-0 text-sm text-white mt-3 ml-3 bg-white/30 px-2 py-1 rounded-tr-lg rounded-bl-lg z-10">
+                <?php echo $article['tags']; ?>
+                </p>
 
+                <!-- Image de l'article -->
+                <img src="<?php echo $article['Url_image']; ?>" alt="Image de l'article" class="w-full h-48 object-cover">
+
+                <div class="p-6">
+                    <!-- Titre -->
+                    <h3 class="text-xl font-semibold text-[#cb6ce6] mb-4 line-clamp-1"><?php echo htmlspecialchars($article['titre']); ?></h3>
+                    <!-- Extrait de contenu -->
+                    <div class="text-gray-700 text-sm mb-4 line-clamp-2"><?php echo (substr($article['contenu'], 0, 100)) . '...'; ?></div>
+                    <!-- Auteur -->
+                    <p class="text-gray-500 text-xs">Publié par <?php echo htmlspecialchars($article['nom_utilisateur']); ?></p>
+                    
+                    <!-- Bouton Voir Plus -->
+                    <a href="./articlesinglevis.php?id=<?php echo $article['id']; ?>" 
+                    class="mt-4 inline-block px-4 py-2 text-white bg-[#cb6ce6] rounded hover:bg-[#b25ed1]">
+                    Voir plus
+                    </a>
+                </div>
+            </div>
+        <?php endwhile; ?>
+
+                <?php else: ?>
+                    <p class="text-gray-500">Aucun article trouvé.</p>
+                <?php endif; ?>
+       </div>
+    </section>
 </body>
 
 </html>
