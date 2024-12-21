@@ -35,7 +35,7 @@ $comments = $result->fetch_all(MYSQLI_ASSOC);
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
-<body class="bg-gray-100 h-screen flex flex-col md:flex-row">
+<body class="bg-gray-100 flex flex-col md:flex-row">
     <!-- Sidebar -->
     <aside class="w-full md:w-64 bg-[#cb6ce6] text-white text-2xl md:text-xl flex flex-col">
         <div class="px-6 py-8">
@@ -75,10 +75,10 @@ $comments = $result->fetch_all(MYSQLI_ASSOC);
 
         
 
-        <div class="bg-white shadow-xl rounded-lg p-6 overflow-hidden">
+        <div class="bg-white shadow-xl rounded-lg p-6 overflow-x-auto">
                <?php if ($result->num_rows > 0): ?>
 
-                <table class="w-full table-auto rounded-lg overflow-hidden text-left">
+                <table class="w-full table-auto rounded-lg overflow-x-auto text-left">
                     <thead class="bg-[#cb6ce6]  text-white">
                         <tr class=" text-white">
                            

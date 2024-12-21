@@ -70,14 +70,14 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
             <h2 class="text-2xl font-bold text-[#cb6ce6]">Bonjour, <?php echo $nom_utilisateur; ?>!</h2>
             <h2 class="text-2xl font-bold text-[#f4bdb8] text-center">Gestion des Articles</h2>
     </div>
-
-    <div class="bg-white shadow-xl rounded-lg p-6 overflow-hidden">
-        <div class="flex justify-end mb-4">
+ <div class="flex justify-end mb-4">
             <a href="./action/ajouter_article.php" class="bg-[#fbd8d5] text-[#cb6ce6] py-2 px-4 rounded-lg hover:bg-[#cb6ce6] hover:text-[#fbd8d5]">
                
             <i class="fa-solid fa-plus"></i> Ajouter un article
             </a>
         </div>
+    <div class="bg-white shadow-xl rounded-lg p-6 overflow-x-auto">
+       
 
         <?php if ($result->num_rows > 0): ?>
             <!-- Si des articles sont trouvés -->

@@ -24,7 +24,7 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
-<body class="bg-gray-100 h-screen flex flex-col md:flex-row">
+<body class="bg-gray-100  flex flex-col md:flex-row">
     <!-- Sidebar -->
     <aside class="w-full md:w-64 bg-[#cb6ce6] text-white text-2xl md:text-xl flex flex-col">
         <div class="px-6 py-8">
@@ -61,7 +61,7 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
             <h2 class="text-2xl font-bold text-[#cb6ce6]">Bonjour, <?php echo $nom_utilisateur; ?>!</h2>
             <h2 class="text-2xl font-bold text-[#f4bdb8] text-center">Gestion des Utilisateurs</h2>
     </div>
-
+    <div class="bg-white shadow-xl rounded-lg p-6 overflow-x-auto">
     
     <?php if ($result->num_rows > 0): ?>
     <table class="w-full table-auto rounded-lg overflow-hidden text-left">
@@ -102,7 +102,7 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
                         </tr>
                     <?php endif; ?>
     </div>
-   
+    </div>
 </main>
 
 
