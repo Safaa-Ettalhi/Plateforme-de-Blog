@@ -226,15 +226,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     commentEditBtns.forEach(function(commentEditBtn) {
         commentEditBtn.addEventListener('click', function() {
             const commentContent = commentEditBtn.getAttribute('data-content');
-            const commentId = commentEditBtn.getAttribute('data-id'); // On récupère l'ID du commentaire
-
-            // Remplir le textarea avec le contenu actuel du commentaire
+            const commentId = commentEditBtn.getAttribute('data-id'); //récupèration d'ID commentaire
             commentContentTextarea.value = commentContent;
-
-            // Placer l'ID du commentaire dans un champ caché
             document.querySelector('[name="commentId"]').value = commentId;
-
-            // Afficher le modal
             commentModal.classList.remove('hidden');
         });
     });
