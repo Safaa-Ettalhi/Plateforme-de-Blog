@@ -153,48 +153,49 @@ $result = $conn->query($query);
             </div>
     </div>
   </div> 
-  <footer class="bg-[#cb6ce6] mb-6 text-gray-200 py-10 rounded-lg mt-20">
-    <div class="mx-20 flex flex justify-between">
-        <div class="flex flex-col justify-between order-2 gap-1">
+  <footer class="bg-[#cb6ce6] text-gray-200 py-10 rounded-lg mt-20">
+    <div class="mx-4 md:mx-20 flex flex-col md:flex-row justify-between gap-8">
+        <!-- Section gauche -->
+        <div class="order-2 md:order-2 flex flex-col gap-4">
             <div>
-                <h2 class="text-2xl font-semibold mb-2">Ready to level up your business?</h2>
-                <p class="text-gray-400 text-sm">Start your 30-day free trial. Cancel anytime.</p>
+                <h2 class="text-2xl font-semibold mb-2">Prêt à passer au niveau supérieur?</h2>
+                <p class="text-gray-500 text-sm">Commencez votre essai gratuit de 30 jours. Annulez à tout moment..</p>
             </div>
-            <button class="mt-2 px-6 py-2 bg-white text-gray-900 font-medium rounded-md hover:bg-gray-200 w-fit">
-                Get started
+            <button class="px-6 py-2 bg-white text-gray-900 font-medium rounded-md hover:bg-gray-200 w-fit">
+               Commencer
             </button>
         </div>
 
-        <div class="order-1">
+        <!-- Section droite -->
+        <div class="order-1 md:order-1 text-center md:text-left">
             <div class="mb-6">
-                <p class="font-semibold flex items-center">
+                <p class="font-semibold flex items-center justify-center md:justify-start">
                     <img src="../../assets/userlogo.svg" alt="Safaa">
                 </p>
-                <p class="text-gray-400 text-sm">
-                    Design amazing digital experiences that create more happy in the world.
+                <p class="text-gray-500 text-sm">
+                Concevez des expériences numériques incroyables qui apportent plus de bonheur dans le monde.
                 </p>
             </div>
-            <nav class="flex space-x-4 text-sm">
-                <a href="#" class="hover:text-white">Home</a>
-                <a href="#" class="hover:text-white">Articles</a>
-                <a href="#" class="hover:text-white">contact</a>
-                <a href="#" class="hover:text-white">Careers</a>
-                <a href="#" class="hover:text-white">Help</a>
-                <a href="#" class="hover:text-white">Privacy</a>
+            <nav class="flex flex-wrap justify-center md:justify-start space-x-4 text-sm">
+                <a href="./article.php" class="hover:text-white">Home</a>
+                <a href="./contact.php" class="hover:text-white">Contact</a>
+                <a href="./tutorial.php" class="hover:text-white">Tutorial</a>
+                <a href="./ressource.php" class="hover:text-white">Ressource</a>
+                
             </nav>
         </div>
     </div>
 
-    <div class="flex justify-between flex-row-reverse mx-20 items-center border-t border-gray-700 mt-10 pt-4">
-        <div class="text-center text-white text-sm">
+    <div class="flex flex-col-reverse md:flex-row justify-between items-center border-t border-gray-700 mt-10 pt-4 mx-4 md:mx-20">
+        <div class="text-center text-white text-sm mt-4 md:mt-0">
             © 2025 Safaa Ettalhi. All rights reserved.
         </div>
-        <div class="flex space-x-4 mt-6 text-2xl">
-            <a href="#" class="hover:text-white"><i class="ri-twitter-fill"></i></a>
-            <a href="#" class="hover:text-white"><i class="ri-facebook-fill"></i></a>
-            <a href="#" class="hover:text-white"><i class="ri-linkedin-fill"></i></a>
-            <a href="#" class="hover:text-white"><i class="ri-github-fill"></i></a>
-            <a href="#" class="hover:text-white"><i class="ri-dribbble-fill"></i></a>
+        <div class="flex justify-center space-x-4 mt-4 md:mt-0 text-2xl">
+            <a href="https://www.instagram.com/safaa_ettalhi1/" class="hover:text-white"><i class="ri-instagram-fill"></i></a>
+            <a href="https://web.facebook.com/safaa.Ettal?locale=fr_FR" class="hover:text-white"><i class="ri-facebook-fill"></i></a>
+            <a href="https://www.linkedin.com/in/safaa-ettalhi/" class="hover:text-white"><i class="ri-linkedin-fill"></i></a>
+            <a href="https://github.com/Safaa-Ettalhi" class="hover:text-white"><i class="ri-github-fill"></i></a>
+            
         </div>
     </div>
 </footer>

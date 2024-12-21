@@ -92,7 +92,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $stmt_update_comment = $conn->prepare("UPDATE commentaires SET contenu = ? WHERE id = ?");
             $stmt_update_comment->bind_param("si", $commentContent, $commentId);
             if ($stmt_update_comment->execute()) {
-                header("Location: articlesingle.php?id=$articleId"); // Redirection vers l'article
+                header("Location: articlesingle.php?id=$articleId"); 
                 exit();
             } else {
                 echo "Erreur lors de la mise à jour du commentaire.";
