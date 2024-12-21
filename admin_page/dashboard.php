@@ -12,6 +12,23 @@ $total_articles = $conn->query("SELECT COUNT(*) AS total FROM articles")->fetch_
 $total_tags = $conn->query("SELECT COUNT(*) AS total FROM tags")->fetch_assoc()['total'];
 
 $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESSION['nom_utilisateur']) : 'Admin';
+
+$query = "
+SELECT tags.nom AS tag, COUNT(articles.id) AS nombre_articles
+FROM tags
+LEFT JOIN article_tags ON tags.id = article_tags.tags_id
+LEFT JOIN articles ON article_tags.article_id = articles.id
+GROUP BY tags.nom
+";
+$result = $conn->query($query);
+
+// Préparer les données pour le graphique
+$labels = [];
+$data = [];
+while ($row = $result->fetch_assoc()) {
+    $labels[] = $row['tag']; 
+    $data[] = $row['nombre_articles']; 
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,9 +37,10 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
-<body class="h-screen flex flex-col md:flex-row">
+<body class=" flex flex-col md:flex-row">
     <!-- Sidebar -->
     <aside class="w-full md:w-64 bg-[#cb6ce6] text-white text-2xl md:text-xl flex flex-col">
         <div class="px-6 py-8">
@@ -84,10 +102,69 @@ $nom_utilisateur = isset($_SESSION['nom_utilisateur']) ? htmlspecialchars($_SESS
         </div>
 
         <!-- Section supplémentaire -->
-        <div class="mt-12 bg-white shadow-md rounded-lg p-6 border border-[#cb6ce6]">
-            <h3 class="text-xl font-bold text-[#cb6ce6] mb-4">Activités récentes</h3>
-            <p class="text-gray-600">Aucune activité récente pour le moment.</p>
-        </div>
+        <!-- <div class="mt-12 bg-white shadow-md rounded-lg p-6 border border-[#cb6ce6]"> -->
+        <section class="bg-white mt-12 p-6 rounded-lg shadow-md border border-[#cb6ce6]">
+                <h3 class="text-lg font-bold text-gray-600">Statistiques des Articles</h3>
+                <canvas id="articlesChart" class="mt-2"></canvas>
+        </section>
+        <!-- </div> -->
     </main>
+    <script>
+     const labels = <?php echo json_encode($labels); ?>;
+     const data = <?php echo json_encode($data); ?>;
+
+  
+    const dataArticles = {
+        labels: labels, 
+        datasets: [{
+            label: "Nombre d'article",
+            data: data, 
+            backgroundColor: [
+                'rgba(240, 179 ,179)',
+                'rgba(235, 86, 243, 0.5)',
+                'rgba(190, 157, 74, 0.5)',
+                'rgba(236 ,170, 216,)',
+                'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+                'rgba(240 ,179, 179)',
+                'rgba(235, 86, 243, 1)',
+                'rgba(190, 157, 74, 1)',
+                'rgba(236 ,170, 216)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+
+    const configArticlesChart = {
+        type: 'bar', 
+        data: dataArticles,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: "Nombre d'articles par tags"
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true 
+                }
+            }
+        }
+    };
+
+    
+    const articlesChart = new Chart(
+        document.getElementById('articlesChart'),
+        configArticlesChart
+    );
+    </script>
 </body>
 </html>
